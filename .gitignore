@@ -18,7 +18,10 @@ DerivedData
 *.xcuserstate
 
 #AppCode
+#
 .idea/
 
-#CocoaPods
-Pods
+# Carthage
+#
+Carthage/Checkouts
+Carthage/Build
