@@ -6,11 +6,11 @@ target 'GiphyXplorer' do
   use_frameworks!
   inhibit_all_warnings!
 
+  pod 'Moya'
   pod 'SwiftyJSON'
   pod 'Gifu'
   pod 'JGProgressHUD'
   pod 'RxSwift'
-  pod 'RxAlamofire'
   pod 'RxRealm'
   pod 'RxDataSources'
 
