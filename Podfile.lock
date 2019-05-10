@@ -3,16 +3,17 @@ PODS:
   - Differentiator (3.1.0)
   - Gifu (3.2.0)
   - JGProgressHUD (2.0.3)
-  - Moya (13.0.1):
-    - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
-  - Realm (3.14.2):
-    - Realm/Headers (= 3.14.2)
-  - Realm/Headers (3.14.2)
-  - RealmSwift (3.14.2):
-    - Realm (= 3.14.2)
+  - Moya/RxSwift (13.0.1):
+    - Moya/Core
+    - RxSwift (~> 4.0)
+  - Realm (3.15.0):
+    - Realm/Headers (= 3.15.0)
+  - Realm/Headers (3.15.0)
+  - RealmSwift (3.15.0):
+    - Realm (= 3.15.0)
   - Result (4.1.0)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
@@ -29,7 +30,7 @@ PODS:
 DEPENDENCIES:
   - Gifu
   - JGProgressHUD
-  - Moya
+  - Moya/RxSwift
   - RxDataSources
   - RxRealm
   - RxSwift
@@ -57,8 +58,8 @@ SPEC CHECKSUMS:
   Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  Realm: 179c6706e3a49dbfe112e572fd3c03d3169bea35
-  RealmSwift: 1797f272fb51c555b764fada32e82159a2c65247
+  Realm: 9b834e1be6062f544805252c812348872dc5d4ed
+  RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
@@ -66,6 +67,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 6d9376cb2c8efb9d72210f75b3954d4f1274b535
+PODFILE CHECKSUM: bf2d50cbe0f7799fe055db04bf84e0aa7ecc5765
 
 COCOAPODS: 1.6.1

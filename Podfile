@@ -6,7 +6,7 @@ target 'GiphyXplorer' do
   use_frameworks!
   inhibit_all_warnings!
 
-  pod 'Moya'
+  pod 'Moya/RxSwift'
   pod 'SwiftyJSON'
   pod 'Gifu'
   pod 'JGProgressHUD'

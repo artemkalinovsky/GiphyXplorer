@@ -6,7 +6,9 @@
 //  Copyright © 2019 Artem Kalinovsky. All rights reserved.
 //
 
+import Realm
 import RealmSwift
+import SwiftyJSON
 
 final class GifObject: Object {
     enum Rating: CaseIterable {
@@ -40,5 +42,30 @@ final class GifObject: Object {
 
     override static func primaryKey() -> String? {
         return "id"
+    }
+
+    convenience required init(json: JSON) {
+        self.init()
+
+        self.id = json["id"].stringValue
+        self.ratingRawValue = json["rating"].string
+        self.slug = json["slug"].string
+        self.importDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: json["import_datetime"].stringValue)
+        self.trendingDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: json["trending_datetime"].stringValue)
+        self.originalImage = GifImage(json: json["images"]["original"])
+        self.fixedHeightImage = GifImage(json: json["images"]["fixed_height"])
+        self.fixedWidthImage = GifImage(json: json["images"]["fixed_width"])
+    }
+
+    required init() {
+        super.init()
+    }
+
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
     }
 }

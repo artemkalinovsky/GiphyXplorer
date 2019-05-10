@@ -3,7 +3,7 @@
 // Copyright (c) 2019 Artem Kalinovsky. All rights reserved.
 //
 
-import Foundation
+import SwiftyJSON
 
 class GiphyApiServicePagination {
     let offset: UInt64
@@ -30,5 +30,11 @@ final class GiphyApiServiceResponsePagination: GiphyApiServicePagination {
         self.totalCount = totalCount
         self.count = count
         super.init(offset: offset)
+    }
+
+    convenience init(json: JSON) {
+        self.init(totalCount: json["total_count"].uInt64Value,
+                  count: json["count"].uInt64Value,
+                  offset: json["offset"].uInt64Value)
     }
 }

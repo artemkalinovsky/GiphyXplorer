@@ -21,8 +21,8 @@ extension GiphyApiService: TargetType {
 
     var path: String {
         switch self {
-        case .searchGifs(_, _, _):
-            return "/search"
+        case .searchGifs:
+            return "/gifs/search"
         }
     }
 
@@ -36,7 +36,11 @@ extension GiphyApiService: TargetType {
     var task: Task {
         switch self {
         case let .searchGifs(query, pagination, rating):
-            return .requestParameters(parameters: ["api_key": GiphyApiService.Constants.apiKey, "q": query, "limit": pagination.limit, "offset": pagination.offset, "rating": rating.apiRequestRepresentation], 
+            return .requestParameters(parameters: ["api_key": GiphyApiService.Constants.apiKey,
+                                                   "q": query,
+                                                   "limit": pagination.limit,
+                                                   "offset": pagination.offset,
+                                                   "rating": rating.apiRequestRepresentation],
                     encoding: URLEncoding.queryString)
 
         }
@@ -44,7 +48,7 @@ extension GiphyApiService: TargetType {
 
     var sampleData: Data {
         switch self {
-        case .searchGifs(_, _, _):
+        case .searchGifs:
             guard let url = Bundle.main.url(forResource: "giphy_search_response_example", withExtension: "json"),
                   let data = try? Data(contentsOf: url) else {
                 return Data()
