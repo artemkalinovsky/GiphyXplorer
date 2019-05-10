@@ -17,9 +17,11 @@ final class GiphySearchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        viewModel.search().subscribe { event in
-            print("\(event.element)")
-        }.disposed(by: disposeBag)
+        viewModel.search()
+            .subscribe { event in
+                print("\(event.element ?? [])")
+            }
+            .disposed(by: disposeBag)
     }
 
 }

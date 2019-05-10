@@ -50,8 +50,12 @@ final class GifObject: Object {
         self.id = json["id"].stringValue
         self.ratingRawValue = json["rating"].string
         self.slug = json["slug"].string
-        self.importDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: json["import_datetime"].stringValue)
-        self.trendingDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: json["trending_datetime"].stringValue)
+        if let importDate = json["import_datetime"].string {
+            self.importDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: importDate)
+        }
+        if let trendigDate = json["trending_datetime"].string {
+            self.trendingDate = DateFormatters.giphyApiServiceResponseDateFormatter.date(from: trendigDate)
+        }
         self.originalImage = GifImage(json: json["images"]["original"])
         self.fixedHeightImage = GifImage(json: json["images"]["fixed_height"])
         self.fixedWidthImage = GifImage(json: json["images"]["fixed_width"])

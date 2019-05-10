@@ -11,16 +11,15 @@ import SwiftyJSON
 import Moya
 
 struct GifObjectsRepository {
-
+    
     private let giphyApiService = MoyaProvider<GiphyApiService>()
     private let realm = try! Realm()
-
+    
     private let disposeBag = DisposeBag()
-
+    
     func searchGifs(query: String,
                     pagination: GiphyApiServiceRequestPagination = GiphyApiServiceRequestPagination(limit: 25, offset: 0),
-                    rating: GifObject.Rating = .g) -> Observable<[GifObject]?> {
-
+                    rating: GifObject.Rating = .pg13) -> Observable<[GifObject]> {
         giphyApiService.rx
             .request(.searchGifs(query: query, pagination: pagination, rating: rating))
             .map { JSON($0.data) }
@@ -29,7 +28,7 @@ struct GifObjectsRepository {
             .asObservable()
             .subscribe(Realm.rx.add(update: true, onError: nil))
             .disposed(by: disposeBag)
-
+        
         return Observable.changeset(from: realm.objects(GifObject.self)).map { $0.0.toArray() }
     }
 }

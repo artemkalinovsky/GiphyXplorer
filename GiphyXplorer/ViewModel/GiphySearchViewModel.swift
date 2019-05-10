@@ -12,8 +12,8 @@ struct GiphySearchViewModel {
 
     private let gifObjectsRepository = GifObjectsRepository()
 
-    func search() -> Observable<[GifObject]?> {
+    func search() -> Observable<[GifObject]> {
         return gifObjectsRepository.searchGifs(query: "kitten")
     }
-    
+
 }
