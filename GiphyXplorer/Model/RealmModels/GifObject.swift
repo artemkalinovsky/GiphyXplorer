@@ -11,22 +11,16 @@ import RealmSwift
 import SwiftyJSON
 
 final class GifObject: Object {
-    enum Rating: CaseIterable {
-        case y, g, pg, pg13, r
 
-        var apiRequestRepresentation: String {
-            switch self {
-            case .y:
-                return "Y"
-            case .g:
-                return "G"
-            case .pg:
-                return "PG"
-            case .pg13:
-                return "PG-13"
-            case .r:
-                return "R"
-            }
+    enum Rating: String {
+        case y = "Y"
+        case g = "G"
+        case pg = "PG"
+        case pg13 = "PG-13"
+        case r = "R"
+
+        static var allRawCases: [String] {
+            return ["Y", "G", "PG", "PG-13", "R"]
         }
     }
 

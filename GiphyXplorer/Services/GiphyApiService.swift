@@ -40,7 +40,7 @@ extension GiphyApiService: TargetType {
                                                    "q": query,
                                                    "limit": pagination.limit,
                                                    "offset": pagination.offset,
-                                                   "rating": rating.apiRequestRepresentation],
+                                                   "rating": rating.rawValue],
                     encoding: URLEncoding.queryString)
 
         }
