@@ -24,7 +24,7 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </searchBar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NXP-ns-1c8">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NXP-ns-1c8">
                                 <rect key="frame" x="240" y="28" width="64" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="bRX-u4-xLk"/>
@@ -34,6 +34,37 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4b8-AQ-kLu">
+                                <rect key="frame" x="40" y="220" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🔍📱" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1k-oU-gsb">
+                                        <rect key="frame" x="65" y="26.5" width="110" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="UKG-AQ-ar3"/>
+                                            <constraint firstAttribute="width" constant="110" id="Xjk-2G-X6j"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add some keywords to find gifs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvu-Vk-WrD">
+                                        <rect key="frame" x="0.0" y="107" width="240" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="zvu-Vk-WrD" secondAttribute="trailing" id="7lX-dS-z4O"/>
+                                    <constraint firstAttribute="height" constant="128" id="OpC-4N-7Li"/>
+                                    <constraint firstItem="b1k-oU-gsb" firstAttribute="centerY" secondItem="4b8-AQ-kLu" secondAttribute="centerY" constant="-10" id="ZVP-GS-D8e"/>
+                                    <constraint firstItem="zvu-Vk-WrD" firstAttribute="leading" secondItem="4b8-AQ-kLu" secondAttribute="leading" id="hMl-TM-pUc"/>
+                                    <constraint firstItem="b1k-oU-gsb" firstAttribute="centerX" secondItem="4b8-AQ-kLu" secondAttribute="centerX" id="sQx-VD-Igr"/>
+                                    <constraint firstAttribute="bottom" secondItem="zvu-Vk-WrD" secondAttribute="bottom" id="uHu-2d-hFQ"/>
+                                    <constraint firstAttribute="width" constant="240" id="x6Z-dY-MnZ"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z3R-TX-utm">
                                 <rect key="frame" x="8" y="80" width="304" height="488"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,6 +90,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d7H-s4-pmn" firstAttribute="top" secondItem="mfc-mo-D2I" secondAttribute="top" constant="8" id="3y9-2N-LKo"/>
+                            <constraint firstItem="4b8-AQ-kLu" firstAttribute="centerX" secondItem="L91-a7-zyA" secondAttribute="centerX" id="4vN-iS-YvR"/>
                             <constraint firstItem="mfc-mo-D2I" firstAttribute="trailing" secondItem="NXP-ns-1c8" secondAttribute="trailing" constant="16" id="5Zu-5m-iSl"/>
                             <constraint firstItem="Z3R-TX-utm" firstAttribute="leading" secondItem="mfc-mo-D2I" secondAttribute="leading" constant="8" id="Ijm-gp-ImN"/>
                             <constraint firstItem="NXP-ns-1c8" firstAttribute="top" secondItem="mfc-mo-D2I" secondAttribute="top" constant="8" id="WI4-nJ-vOl"/>
@@ -66,12 +98,15 @@
                             <constraint firstItem="mfc-mo-D2I" firstAttribute="trailing" secondItem="Z3R-TX-utm" secondAttribute="trailing" constant="8" id="eMv-73-77k"/>
                             <constraint firstItem="Z3R-TX-utm" firstAttribute="top" secondItem="d7H-s4-pmn" secondAttribute="bottom" constant="8" id="jKJ-3g-ei7"/>
                             <constraint firstItem="NXP-ns-1c8" firstAttribute="leading" secondItem="d7H-s4-pmn" secondAttribute="trailing" constant="10" id="pac-1l-LFs"/>
+                            <constraint firstItem="4b8-AQ-kLu" firstAttribute="centerY" secondItem="L91-a7-zyA" secondAttribute="centerY" id="qU1-IU-u8B"/>
                             <constraint firstItem="d7H-s4-pmn" firstAttribute="leading" secondItem="mfc-mo-D2I" secondAttribute="leading" id="xog-WU-K3b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mfc-mo-D2I"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Z3R-TX-utm" id="Bm2-fM-ALw"/>
+                        <outlet property="emojiPlaceholderLabel" destination="b1k-oU-gsb" id="xTo-ge-XGr"/>
+                        <outlet property="placeholderView" destination="4b8-AQ-kLu" id="X9j-rg-Jmo"/>
                         <outlet property="ratingPickerView" destination="AhU-qT-qNJ" id="941-a2-H9D"/>
                         <outlet property="ratingTextField" destination="NXP-ns-1c8" id="8GA-as-yci"/>
                         <outlet property="searchBar" destination="d7H-s4-pmn" id="8R6-D5-aQx"/>

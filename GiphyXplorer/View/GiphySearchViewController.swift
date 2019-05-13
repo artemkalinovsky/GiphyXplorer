@@ -12,6 +12,8 @@ import RxCocoa
 
 final class GiphySearchViewController: UIViewController {
 
+    @IBOutlet private weak var emojiPlaceholderLabel: UILabel!
+    @IBOutlet private weak var placeholderView: UIView!
     @IBOutlet private weak var ratingTextField: UITextField!
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -51,9 +53,8 @@ final class GiphySearchViewController: UIViewController {
 
         searchParametersObservable.filter { searchBarText, _  in
             return searchBarText.isEmpty
-            }.subscribe(onNext: { _, _ in
-                print("Empry query")
-                // TODO: - Show Error message
+            }.subscribe(onNext: { [weak self] _, _ in
+                self?.collectionView.isHidden = true
             }).disposed(by: disposeBag)
 
         searchParametersObservable
@@ -64,10 +65,22 @@ final class GiphySearchViewController: UIViewController {
                 return (searchText: $0, rating: GifObject.Rating(rawValue: $1) ?? .g)
             }.flatMap {
                 self.viewModel.search(query: $0.searchText, rating: $0.rating)
-            }.subscribe(onNext: { gifObjects in
+            }.subscribe(onNext: { [weak self] gifObjects in
+                self?.collectionView.isHidden = false
                 print("\(gifObjects)")
             }).disposed(by: disposeBag)
 
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIView.animate(withDuration: 3,
+                       delay: 0,
+                       options: [.autoreverse, .repeat, .curveEaseInOut],
+                       animations: {
+                        self.emojiPlaceholderLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        })
     }
 
 }

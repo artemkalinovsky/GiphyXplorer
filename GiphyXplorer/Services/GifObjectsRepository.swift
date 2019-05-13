@@ -23,8 +23,7 @@ struct GifObjectsRepository {
         giphyApiService.rx
             .request(.searchGifs(query: query, pagination: pagination, rating: rating))
             .map { JSON($0.data) }
-            .map { GiphyApiServiceResponse(json: $0) }
-            .map { $0.gifObjects }
+            .map { GiphyApiServiceResponse(json: $0).gifObjects }
             .asObservable()
             .subscribe(Realm.rx.add(update: true, onError: nil))
             .disposed(by: disposeBag)
