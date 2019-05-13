@@ -20,14 +20,22 @@ struct GifObjectsRepository {
     func searchGifs(query: String,
                     pagination: GiphyApiServiceRequestPagination,
                     rating: GifObject.Rating) -> Observable<[GifObject]> {
-        giphyApiService.rx
+
+        let giphyApiServiceResponseObservable = giphyApiService.rx
             .request(.searchGifs(query: query, pagination: pagination, rating: rating))
             .map { JSON($0.data) }
             .map { GiphyApiServiceResponse(json: $0).gifObjects }
-            .asObservable()
+            .asObservable().share()
+
+        let realmChangeSetObservable = Observable.changeset(from: realm.objects(GifObject.self)).map { $0.0.toArray() }
+
+        giphyApiServiceResponseObservable
             .subscribe(Realm.rx.add(update: true, onError: nil))
             .disposed(by: disposeBag)
 
-        return Observable.changeset(from: realm.objects(GifObject.self)).map { $0.0.toArray() }
+        return Observable.combineLatest(realmChangeSetObservable, giphyApiServiceResponseObservable)
+            .map { (_: [GifObject], recentlyFetchedGifObjects: [GifObject]) in
+                return recentlyFetchedGifObjects
+        }
     }
 }
