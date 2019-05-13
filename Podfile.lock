@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - Differentiator (3.1.0)
-  - Gifu (3.2.0)
+  - FLAnimatedImage (1.0.14)
   - JGProgressHUD (2.0.3)
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
@@ -28,7 +28,7 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - Gifu
+  - FLAnimatedImage (from `https://github.com/Flipboard/FLAnimatedImage.git`)
   - JGProgressHUD
   - Moya/RxSwift
   - RxDataSources
@@ -40,7 +40,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Differentiator
-    - Gifu
     - JGProgressHUD
     - Moya
     - Realm
@@ -52,10 +51,19 @@ SPEC REPOS:
     - RxSwift
     - SwiftyJSON
 
+EXTERNAL SOURCES:
+  FLAnimatedImage:
+    :git: https://github.com/Flipboard/FLAnimatedImage.git
+
+CHECKOUT OPTIONS:
+  FLAnimatedImage:
+    :commit: 612910aa78268029bc883cfd3c7e36dd2a1a6215
+    :git: https://github.com/Flipboard/FLAnimatedImage.git
+
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
-  Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
+  FLAnimatedImage: 58084d75cec819869a5ee8c76463df798dbaa906
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   Realm: 9b834e1be6062f544805252c812348872dc5d4ed
@@ -67,6 +75,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: bf2d50cbe0f7799fe055db04bf84e0aa7ecc5765
+PODFILE CHECKSUM: 03d76c789deddd3f031fa540fd026685106bd5ca
 
 COCOAPODS: 1.6.1

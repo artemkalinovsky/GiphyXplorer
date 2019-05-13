@@ -65,10 +65,12 @@ final class GiphySearchViewController: UIViewController {
                 return (searchText: $0, rating: GifObject.Rating(rawValue: $1) ?? .g)
             }.flatMap {
                 self.viewModel.search(query: $0.searchText, rating: $0.rating)
-            }.subscribe(onNext: { [weak self] gifObjects in
+            }.do(onNext: { [weak self] _ in
                 self?.collectionView.isHidden = false
-                print("\(gifObjects)")
-            }).disposed(by: disposeBag)
+            }).bind(to: collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
+                                                cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
+                                                    cell.configure(with: gifObject)
+            }.disposed(by: disposeBag)
 
     }
 

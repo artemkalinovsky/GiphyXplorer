@@ -26,6 +26,9 @@
 		C88A60B4227898B9008B2FC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88A60B3227898B9008B2FC4 /* Assets.xcassets */; };
 		C88A60B7227898B9008B2FC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88A60B5227898B9008B2FC4 /* LaunchScreen.storyboard */; };
 		C88A60C2227898BA008B2FC4 /* GiphyXplorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88A60C1227898BA008B2FC4 /* GiphyXplorerTests.swift */; };
+		C8D44E7E22898D3800E3FC0C /* GifObjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D44E7D22898D3800E3FC0C /* GifObjectCollectionViewCell.swift */; };
+		C8D44E8022898D6B00E3FC0C /* BaseCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D44E7F22898D6B00E3FC0C /* BaseCellProtocol.swift */; };
+		C8D44E8222898D9700E3FC0C /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D44E8122898D9700E3FC0C /* NibLoadable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,9 @@
 		C88A60BD227898BA008B2FC4 /* GiphyXplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiphyXplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88A60C1227898BA008B2FC4 /* GiphyXplorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyXplorerTests.swift; sourceTree = "<group>"; };
 		C88A60C3227898BA008B2FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8D44E7D22898D3800E3FC0C /* GifObjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifObjectCollectionViewCell.swift; sourceTree = "<group>"; };
+		C8D44E7F22898D6B00E3FC0C /* BaseCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCellProtocol.swift; sourceTree = "<group>"; };
+		C8D44E8122898D9700E3FC0C /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		E800325D5D5AE44CCCD38525 /* Pods-GiphyXplorerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyXplorerTests.debug.xcconfig"; path = "Target Support Files/Pods-GiphyXplorerTests/Pods-GiphyXplorerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +148,9 @@
 			isa = PBXGroup;
 			children = (
 				C804E3C922857891001D3E9F /* GiphySearchViewController.swift */,
+				C8D44E7D22898D3800E3FC0C /* GifObjectCollectionViewCell.swift */,
+				C8D44E7F22898D6B00E3FC0C /* BaseCellProtocol.swift */,
+				C8D44E8122898D9700E3FC0C /* NibLoadable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -367,7 +376,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GiphyXplorer/Pods-GiphyXplorer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -385,7 +394,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -452,10 +461,13 @@
 				C804E3CE22857913001D3E9F /* GiphySearchViewModel.swift in Sources */,
 				C88A60AD227898B7008B2FC4 /* AppDelegate.swift in Sources */,
 				C8661F0B227B35DA00AAE891 /* GifObject.swift in Sources */,
+				C8D44E8022898D6B00E3FC0C /* BaseCellProtocol.swift in Sources */,
 				C8661F0D227B377500AAE891 /* GifImage.swift in Sources */,
+				C8D44E7E22898D3800E3FC0C /* GifObjectCollectionViewCell.swift in Sources */,
 				B2D292E093F04197CB7AA82B /* GiphyApiService.swift in Sources */,
 				C882C6B322830761008D8B47 /* DateFormatters.swift in Sources */,
 				C804E3D12285A381001D3E9F /* UIResponder+Extensions.swift in Sources */,
+				C8D44E8222898D9700E3FC0C /* NibLoadable.swift in Sources */,
 				B2D292909B48893199F513D5 /* GiphyApiServicePagination.swift in Sources */,
 				B2D293CBDB2341A6698C0C18 /* GiphyApiServiceResponse.swift in Sources */,
 				B2D29CBED330E9D581231B18 /* GifObjectsRepository.swift in Sources */,
