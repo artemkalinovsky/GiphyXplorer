@@ -12,18 +12,6 @@ import SwiftyJSON
 
 final class GifObject: Object {
 
-    enum Rating: String {
-        case y = "Y"
-        case g = "G"
-        case pg = "PG"
-        case pg13 = "PG-13"
-        case r = "R"
-
-        static var allRawCases: [String] {
-            return ["Y", "G", "PG", "PG-13", "R"]
-        }
-    }
-
     @objc dynamic var id = ""
     @objc dynamic var ratingRawValue: String?
     @objc dynamic var slug: String?

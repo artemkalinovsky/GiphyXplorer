@@ -7,11 +7,11 @@ import Moya
 
 enum GiphyApiService {
 
-    struct Constants {
+    private struct Constants {
         static let apiKey = "pIUz0DCNFXSO2mGHeNE4dUnUwdJctsXZ"
     }
 
-    case searchGifs(query: String, pagination: GiphyApiServiceRequestPagination, rating: GifObject.Rating)
+    case searchGifs(query: String, pagination: GiphyApiServiceRequestPagination, rating: Rating)
 }
 
 // MARK: - TargetType Protocol Implementation

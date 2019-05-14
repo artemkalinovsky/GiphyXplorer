@@ -27,9 +27,9 @@ final class GiphySearchViewController: UIViewController {
 
         ratingTextField.inputView = ratingPickerView
         ratingTextField.inputAccessoryView = ratingTextField.doneToolbar()
-        ratingTextField.text = GifObject.Rating.g.rawValue
+        ratingTextField.text = Rating.g.rawValue
 
-        Observable.just(GifObject.Rating.allRawCases)
+        Observable.just(Rating.allRawCases)
             .bind(to: ratingPickerView.rx.itemTitles) { _, ratigItem in
                 return ratigItem
             }
@@ -37,7 +37,7 @@ final class GiphySearchViewController: UIViewController {
 
         ratingPickerView.rx.itemSelected
             .map { row, _ in
-                return GifObject.Rating.allRawCases[row]
+                return Rating.allRawCases[row]
             }
             .bind(to: ratingTextField.rx.text)
             .disposed(by: disposeBag)
@@ -48,11 +48,11 @@ final class GiphySearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.throttle(2, scheduler: MainScheduler.instance).distinctUntilChanged(),
-                                                                  ratingTextField.rx.text.orEmpty.distinctUntilChanged()).share()
+        let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.debounce(1, scheduler: MainScheduler.instance).distinctUntilChanged(), ratingTextField.rx.text.orEmpty.distinctUntilChanged()).share()
 
-        searchParametersObservable.filter { searchBarText, _  in
-            return searchBarText.isEmpty
+        searchParametersObservable
+            .filter { searchBarText, _  in
+                return searchBarText.isEmpty
             }.subscribe(onNext: { [weak self] _, _ in
                 self?.collectionView.isHidden = true
             }).disposed(by: disposeBag)
@@ -62,7 +62,7 @@ final class GiphySearchViewController: UIViewController {
                 return !searchBarText.isEmpty && !ratingText.isEmpty
             }
             .map {
-                return (searchText: $0, rating: GifObject.Rating(rawValue: $1) ?? .g)
+                return (searchText: $0, rating: Rating(rawValue: $1) ?? .g)
             }.flatMap {
                 self.viewModel.search(query: $0.searchText, rating: $0.rating)
             }.do(onNext: { [weak self] _ in

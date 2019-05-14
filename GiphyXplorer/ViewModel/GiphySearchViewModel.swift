@@ -13,9 +13,9 @@ struct GiphySearchViewModel {
     private let gifObjectsRepository = GifObjectsRepository()
 
     func search(query: String,
-                rating: GifObject.Rating = .g) -> Observable<[GifObject]> {
+                rating: Rating = .g) -> Observable<[GifObject]> {
         return gifObjectsRepository.searchGifs(query: query,
-                                               pagination: GiphyApiServiceRequestPagination(limit: 25, offset: 0),
+                                               pagination: GiphyApiServiceRequestPagination(limit: 100, offset: 0),
                                                rating: rating)
     }
 
