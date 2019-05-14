@@ -51,27 +51,16 @@ final class GiphySearchViewController: UIViewController {
         let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.debounce(1, scheduler: MainScheduler.instance).distinctUntilChanged(), ratingTextField.rx.text.orEmpty.distinctUntilChanged()).share()
 
         searchParametersObservable
-            .filter { searchBarText, _  in
-                return searchBarText.isEmpty
-            }.subscribe(onNext: { [weak self] _, _ in
-                self?.collectionView.isHidden = true
-            }).disposed(by: disposeBag)
-
-        searchParametersObservable
-            .filter { searchBarText, ratingText in
-                return !searchBarText.isEmpty && !ratingText.isEmpty
-            }
-            .map {
-                return (searchText: $0, rating: Rating(rawValue: $1) ?? .g)
-            }.flatMap {
-                self.viewModel.search(query: $0.searchText, rating: $0.rating)
-            }.do(onNext: { [weak self] _ in
-                self?.collectionView.isHidden = false
+            .map { (searchText: String, ratingRawValue: String) in
+                return (searchText: searchText, rating: Rating(rawValue: ratingRawValue) ?? .g)
+            }.flatMap { [unowned self] searchParams in
+                return self.viewModel.search(query: searchParams.searchText, rating: searchParams.rating)
+            }.do(onNext: { [weak self] gifObjects in
+                self?.collectionView.isHidden = gifObjects.isEmpty
             }).bind(to: collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
                                                 cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
                                                     cell.configure(with: gifObject)
             }.disposed(by: disposeBag)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -20,6 +20,9 @@ struct GifObjectsRepository {
     func searchGifs(query: String,
                     pagination: GiphyApiServiceRequestPagination,
                     rating: Rating) -> Observable<[GifObject]> {
+        guard !query.isEmpty else {
+            return Observable.just([GifObject]())
+        }
 
         let giphyApiServiceResponseObservable = giphyApiService.rx
             .request(.searchGifs(query: query, pagination: pagination, rating: rating))

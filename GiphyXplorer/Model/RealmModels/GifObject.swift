@@ -11,7 +11,6 @@ import RealmSwift
 import SwiftyJSON
 
 final class GifObject: Object {
-
     @objc dynamic var id = ""
     @objc dynamic var ratingRawValue: String?
     @objc dynamic var slug: String?
