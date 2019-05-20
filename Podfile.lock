@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - Differentiator (3.1.0)
-  - FLAnimatedImage (1.0.14)
+  - FLAnimatedImage (1.0.12)
   - JGProgressHUD (2.0.3)
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
@@ -9,6 +9,10 @@ PODS:
   - Moya/RxSwift (13.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - Nuke (7.6.3)
+  - Nuke-FLAnimatedImage-Plugin (6.1):
+    - FLAnimatedImage (~> 1.0)
+    - Nuke (~> 7.5)
   - Realm (3.15.0):
     - Realm/Headers (= 3.15.0)
   - Realm/Headers (3.15.0)
@@ -28,9 +32,9 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - FLAnimatedImage (from `https://github.com/Flipboard/FLAnimatedImage.git`)
   - JGProgressHUD
   - Moya/RxSwift
+  - Nuke-FLAnimatedImage-Plugin
   - RxDataSources
   - RxRealm
   - RxSwift
@@ -40,8 +44,11 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Differentiator
+    - FLAnimatedImage
     - JGProgressHUD
     - Moya
+    - Nuke
+    - Nuke-FLAnimatedImage-Plugin
     - Realm
     - RealmSwift
     - Result
@@ -51,21 +58,14 @@ SPEC REPOS:
     - RxSwift
     - SwiftyJSON
 
-EXTERNAL SOURCES:
-  FLAnimatedImage:
-    :git: https://github.com/Flipboard/FLAnimatedImage.git
-
-CHECKOUT OPTIONS:
-  FLAnimatedImage:
-    :commit: 612910aa78268029bc883cfd3c7e36dd2a1a6215
-    :git: https://github.com/Flipboard/FLAnimatedImage.git
-
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
-  FLAnimatedImage: 58084d75cec819869a5ee8c76463df798dbaa906
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Nuke: 44130e95e09463f8773ae4b96b90de1eba6b3350
+  Nuke-FLAnimatedImage-Plugin: bee60907311da45dd291463f41a176d50de68122
   Realm: 9b834e1be6062f544805252c812348872dc5d4ed
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
@@ -75,6 +75,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 03d76c789deddd3f031fa540fd026685106bd5ca
+PODFILE CHECKSUM: 9b07f4130a9ba551f2970fe1ccf0816d2e22126e
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.6.2

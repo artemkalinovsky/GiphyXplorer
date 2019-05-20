@@ -8,7 +8,7 @@ target 'GiphyXplorer' do
 
   pod 'Moya/RxSwift'
   pod 'SwiftyJSON'
-  pod 'FLAnimatedImage', :git => 'https://github.com/Flipboard/FLAnimatedImage.git'
+  pod 'Nuke-FLAnimatedImage-Plugin'
   pod 'JGProgressHUD'
   pod 'RxSwift'
   pod 'RxRealm'

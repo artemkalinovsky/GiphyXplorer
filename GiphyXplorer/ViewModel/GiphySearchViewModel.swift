@@ -11,12 +11,15 @@ import RxSwift
 struct GiphySearchViewModel {
 
     private let gifObjectsRepository = GifObjectsRepository()
+    var gifObjects = Variable<[GifObject]>([GifObject]())
 
+    private let disposeBag = DisposeBag()
+    
     func search(query: String,
-                rating: Rating = .g) -> Observable<[GifObject]> {
-        return gifObjectsRepository.searchGifs(query: query,
+                rating: Rating = .g) {
+        gifObjectsRepository.searchGifs(query: query,
                                                pagination: GiphyApiServiceRequestPagination(limit: 300, offset: 0),
-                                               rating: rating)
+                                               rating: rating).bind(to: gifObjects).disposed(by: disposeBag)
     }
 
 }

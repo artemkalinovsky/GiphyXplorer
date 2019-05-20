@@ -17,6 +17,10 @@ struct GifObjectsRepository {
 
     private let disposeBag = DisposeBag()
 
+    init() {
+        print("Default Realm: \(Realm.Configuration.defaultConfiguration.fileURL?.absoluteString ?? "")")
+    }
+
     func searchGifs(query: String,
                     pagination: GiphyApiServiceRequestPagination,
                     rating: Rating) -> Observable<[GifObject]> {

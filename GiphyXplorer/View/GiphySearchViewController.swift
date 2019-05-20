@@ -53,12 +53,13 @@ final class GiphySearchViewController: UIViewController {
         searchParametersObservable
             .map { (searchText: String, ratingRawValue: String) in
                 return (searchText: searchText, rating: Rating(rawValue: ratingRawValue) ?? .g)
-            }.flatMap { [unowned self] searchParams in
-                return self.viewModel.search(query: searchParams.searchText, rating: searchParams.rating)
+            }.flatMap { [unowned self] searchParams -> Observable<[GifObject]> in
+                self.viewModel.search(query: searchParams.searchText, rating: searchParams.rating)
+                return self.viewModel.gifObjects.asObservable()
             }.do(onNext: { [weak self] gifObjects in
                 self?.collectionView.isHidden = gifObjects.isEmpty
             }).bind(to: collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
-                                                cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
+                                                cellType: GifObjectCollectionViewCell.self)) { row, gifObject, cell in
                                                     cell.configure(with: gifObject)
             }.disposed(by: disposeBag)
     }

@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import Nuke
+import NukeFLAnimatedImagePlugin
 import FLAnimatedImage
 
 final class GifObjectCollectionViewCell: UICollectionViewCell, BaseCellProtocol {
@@ -16,22 +18,16 @@ final class GifObjectCollectionViewCell: UICollectionViewCell, BaseCellProtocol 
 
     private var currentGifDataRequest: DataRequest?
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        currentGifDataRequest?.cancel()
-        currentGifDataRequest = nil
-        imageView.animatedImage = nil
-    }
-
     func configure(with gifObject: GifObject) {
         imageView.backgroundColor = GiphyColors.randomColor
         activityIndicator.startAnimating()
-        guard let gifUrlString = gifObject.fixedWidthImage?.urlString else { return }
-        currentGifDataRequest = Alamofire.request(gifUrlString).responseData { [weak self] gifDataResponse in
-            guard let gifData = gifDataResponse.data else { return }
-            self?.imageView.animatedImage = FLAnimatedImage(animatedGIFData: gifData)
-            self?.activityIndicator.stopAnimating()
-        }
+        guard let gifUrl = URL(string: gifObject.fixedWidthImage?.urlString ?? "") else { return }
+        Nuke.loadImage(
+            with: gifUrl,
+            options: ImageLoadingOptions(transition: .fadeIn(duration: 0.33)),
+            into: imageView,
+            completion: { [weak self] _, _ in
+                self?.activityIndicator.stopAnimating()
+        })
     }
 }

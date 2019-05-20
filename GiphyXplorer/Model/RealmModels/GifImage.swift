@@ -15,7 +15,6 @@ final class GifImage: Object {
     @objc dynamic var mp4UrlString: String?
     @objc dynamic var width: Float = 0.0
     @objc dynamic var height: Float = 0.0
-    @objc dynamic var data: Data?
 
     override static func primaryKey() -> String? {
         return "urlString"
@@ -28,7 +27,6 @@ final class GifImage: Object {
         self.mp4UrlString = json["mp4"].string
         self.width = json["width"].floatValue
         self.height = json["height"].floatValue
-        self.data = nil
     }
 
     required init() {
@@ -42,4 +40,5 @@ final class GifImage: Object {
     required init(realm: RLMRealm, schema: RLMObjectSchema) {
         super.init(realm: realm, schema: schema)
     }
+
 }
