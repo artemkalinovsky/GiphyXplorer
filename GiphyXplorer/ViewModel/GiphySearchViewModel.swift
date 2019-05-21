@@ -14,7 +14,7 @@ struct GiphySearchViewModel {
     var gifObjects = Variable<[GifObject]>([GifObject]())
 
     private let disposeBag = DisposeBag()
-    
+
     func search(query: String,
                 rating: Rating = .g) {
         gifObjectsRepository.searchGifs(query: query,

@@ -28,6 +28,7 @@ final class GifObjectCollectionViewCell: UICollectionViewCell, BaseCellProtocol 
             into: imageView,
             completion: { [weak self] _, _ in
                 self?.activityIndicator.stopAnimating()
+                self?.imageView.backgroundColor = UIColor.clear
         })
     }
 }

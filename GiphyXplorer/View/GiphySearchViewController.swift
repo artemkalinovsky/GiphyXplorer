@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 import RxSwift
 import RxCocoa
 
@@ -19,11 +20,22 @@ final class GiphySearchViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private var ratingPickerView: UIPickerView!
 
+    private lazy var hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        return hud
+    }()
+
     private let viewModel = GiphySearchViewModel()
+
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
+            layout.delegate = self
+        }
 
         ratingTextField.inputView = ratingPickerView
         ratingTextField.inputAccessoryView = ratingTextField.doneToolbar()
@@ -48,18 +60,24 @@ final class GiphySearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.debounce(1, scheduler: MainScheduler.instance).distinctUntilChanged(), ratingTextField.rx.text.orEmpty.distinctUntilChanged()).share()
+        let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.debounce(1, scheduler: MainScheduler.instance).distinctUntilChanged(), ratingTextField.rx.text.orEmpty.distinctUntilChanged())
 
         searchParametersObservable
             .map { (searchText: String, ratingRawValue: String) in
                 return (searchText: searchText, rating: Rating(rawValue: ratingRawValue) ?? .g)
-            }.flatMap { [unowned self] searchParams -> Observable<[GifObject]> in
+            }.do(onNext: { [unowned self] _ in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                self.hud.show(in: self.view)
+            }).flatMap { [unowned self] searchParams -> Observable<[GifObject]> in
                 self.viewModel.search(query: searchParams.searchText, rating: searchParams.rating)
                 return self.viewModel.gifObjects.asObservable()
-            }.do(onNext: { [weak self] gifObjects in
-                self?.collectionView.isHidden = gifObjects.isEmpty
+            }.do(onNext: { [unowned self] gifObjects in
+                self.collectionView.isHidden = gifObjects.isEmpty
+                self.collectionView.setContentOffset(.zero, animated: true)
+                self.hud.dismiss(animated: true)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }).bind(to: collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
-                                                cellType: GifObjectCollectionViewCell.self)) { row, gifObject, cell in
+                                                cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
                                                     cell.configure(with: gifObject)
             }.disposed(by: disposeBag)
     }
@@ -75,4 +93,11 @@ final class GiphySearchViewController: UIViewController {
         })
     }
 
+}
+
+extension GiphySearchViewController: PinterestLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return CGFloat(viewModel.gifObjects.value[indexPath.item].fixedWidthImage?.height ?? 0)
+    }
 }
