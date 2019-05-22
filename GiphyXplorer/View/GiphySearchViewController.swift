@@ -12,7 +12,6 @@ import RxSwift
 import RxCocoa
 
 final class GiphySearchViewController: UIViewController {
-
     @IBOutlet private weak var emojiPlaceholderLabel: UILabel!
     @IBOutlet private weak var placeholderView: UIView!
     @IBOutlet private weak var ratingTextField: UITextField!
@@ -37,6 +36,28 @@ final class GiphySearchViewController: UIViewController {
             layout.delegate = self
         }
 
+        bindPickerView()
+        bindCollectionView()
+
+        searchBar.rx.searchButtonClicked
+            .subscribe({ [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIView.animate(withDuration: 3,
+                       delay: 0,
+                       options: [.autoreverse, .repeat, .curveEaseInOut],
+                       animations: {
+                        self.emojiPlaceholderLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        })
+    }
+
+    private func bindPickerView() {
         ratingTextField.inputView = ratingPickerView
         ratingTextField.inputAccessoryView = ratingTextField.doneToolbar()
         ratingTextField.text = Rating.g.rawValue
@@ -53,46 +74,50 @@ final class GiphySearchViewController: UIViewController {
             }
             .bind(to: ratingTextField.rx.text)
             .disposed(by: disposeBag)
+    }
 
-        searchBar.rx.searchButtonClicked
-            .subscribe({ [weak self] _ in
-                self?.view.endEditing(true)
-            })
-            .disposed(by: disposeBag)
+    private func bindCollectionView() {
+        let searchBarTextObservable = searchBar.rx.text
+            .orEmpty
+            .debounce(2, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
 
-        let searchParametersObservable = Observable.combineLatest(searchBar.rx.text.orEmpty.debounce(1, scheduler: MainScheduler.instance).distinctUntilChanged(), ratingTextField.rx.text.orEmpty.distinctUntilChanged())
+        let ratingObservable = ratingTextField.rx.text.orEmpty.distinctUntilChanged()
 
-        searchParametersObservable
-            .map { (searchText: String, ratingRawValue: String) in
+        Observable.combineLatest(searchBarTextObservable, ratingObservable)
+            .map { [unowned self] (searchText: String, ratingRawValue: String) in
+                if !searchText.isEmpty {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                    self.hud.show(in: self.view)
+                    self.collectionView.isHidden = true
+                    self.viewModel.gifObjects.value = []
+                    self.collectionView.setContentOffset(.zero, animated: true)
+                    self.collectionView.collectionViewLayout.invalidateLayout()
+                }
                 return (searchText: searchText, rating: Rating(rawValue: ratingRawValue) ?? .g)
-            }.do(onNext: { [unowned self] _ in
+            }.subscribe(onNext: { [unowned self] (searchText: String, rating: Rating) in
+                self.viewModel.search(query: searchText, rating: rating, refreshResults: true)
+            }).disposed(by: disposeBag)
+
+        collectionView.rx
+            .reachedBottom(offset: 300)
+            .subscribe(onNext: { [unowned self] in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                self.hud.show(in: self.view)
-            }).flatMap { [unowned self] searchParams -> Observable<[GifObject]> in
-                self.viewModel.search(query: searchParams.searchText, rating: searchParams.rating)
-                return self.viewModel.gifObjects.asObservable()
-            }.do(onNext: { [unowned self] gifObjects in
+                self.viewModel.search(query: self.searchBar.text ?? "",
+                                      rating: Rating(rawValue: self.ratingTextField.text ?? "") ?? .g)
+            }).disposed(by: disposeBag)
+
+        viewModel.gifObjects
+            .asDriver()
+            .do(onNext: { [unowned self] gifObjects in
                 self.collectionView.isHidden = gifObjects.isEmpty
-                self.collectionView.setContentOffset(.zero, animated: true)
-                self.hud.dismiss(animated: true)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }).bind(to: collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
-                                                cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
-                                                    cell.configure(with: gifObject)
+                self.hud.dismiss(animated: true)
+            }).drive(collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
+                                             cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
+                                                cell.configure(with: gifObject)
             }.disposed(by: disposeBag)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        UIView.animate(withDuration: 3,
-                       delay: 0,
-                       options: [.autoreverse, .repeat, .curveEaseInOut],
-                       animations: {
-                        self.emojiPlaceholderLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        })
-    }
-
 }
 
 extension GiphySearchViewController: PinterestLayoutDelegate {

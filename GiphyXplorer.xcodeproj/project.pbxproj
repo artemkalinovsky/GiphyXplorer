@@ -19,6 +19,7 @@
 		C804E3CE22857913001D3E9F /* GiphySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804E3CD22857913001D3E9F /* GiphySearchViewModel.swift */; };
 		C804E3D12285A381001D3E9F /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804E3D02285A381001D3E9F /* UIResponder+Extensions.swift */; };
 		C82F3E3A22942B1500ACF2ED /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F3E3922942B1500ACF2ED /* PinterestLayout.swift */; };
+		C82F3E3C22944FBA00ACF2ED /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F3E3B22944FBA00ACF2ED /* UIScrollView+Extensions.swift */; };
 		C84C317D228AC83400F3999B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C317C228AC83400F3999B /* Rating.swift */; };
 		C84C317F228AC97E00F3999B /* GiphyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C317E228AC97E00F3999B /* GiphyColors.swift */; };
 		C8661F0B227B35DA00AAE891 /* GifObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8661F0A227B35DA00AAE891 /* GifObject.swift */; };
@@ -59,6 +60,7 @@
 		C804E3CD22857913001D3E9F /* GiphySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphySearchViewModel.swift; sourceTree = "<group>"; };
 		C804E3D02285A381001D3E9F /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		C82F3E3922942B1500ACF2ED /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		C82F3E3B22944FBA00ACF2ED /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		C84C317C228AC83400F3999B /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		C84C317E228AC97E00F3999B /* GiphyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyColors.swift; sourceTree = "<group>"; };
 		C8661F0A227B35DA00AAE891 /* GifObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifObject.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				C804E3D02285A381001D3E9F /* UIResponder+Extensions.swift */,
+				C82F3E3B22944FBA00ACF2ED /* UIScrollView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				B2D293CBDB2341A6698C0C18 /* GiphyApiServiceResponse.swift in Sources */,
 				B2D29CBED330E9D581231B18 /* GifObjectsRepository.swift in Sources */,
 				C82F3E3A22942B1500ACF2ED /* PinterestLayout.swift in Sources */,
+				C82F3E3C22944FBA00ACF2ED /* UIScrollView+Extensions.swift in Sources */,
 				C804E3CA22857891001D3E9F /* GiphySearchViewController.swift in Sources */,
 				C84C317F228AC97E00F3999B /* GiphyColors.swift in Sources */,
 			);

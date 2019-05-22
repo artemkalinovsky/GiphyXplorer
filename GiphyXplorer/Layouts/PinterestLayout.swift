@@ -15,11 +15,11 @@ protocol PinterestLayoutDelegate: class {
 
 final class PinterestLayout: UICollectionViewLayout {
     weak var delegate: PinterestLayoutDelegate?
-
+    
+    private var contentHeight: CGFloat = 0
     private var numberOfColumns = 2
     private var cellPadding: CGFloat = 6
     private var cache = [UICollectionViewLayoutAttributes]()
-    private var contentHeight: CGFloat = 0
 
     private var contentWidth: CGFloat {
         guard let collectionView = collectionView else {
@@ -35,11 +35,12 @@ final class PinterestLayout: UICollectionViewLayout {
 
     override func prepare() {
         super.prepare()
-        
+
         cache.removeAll()
         guard let delegate = delegate, cache.isEmpty == true, let collectionView = collectionView else {
             return
         }
+        contentHeight = 0
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset = [CGFloat]()
         for column in 0 ..< numberOfColumns {
@@ -62,6 +63,7 @@ final class PinterestLayout: UICollectionViewLayout {
             cache.append(attributes)
 
             contentHeight = max(contentHeight, frame.maxY)
+
             yOffset[column] = yOffset[column] + height
 
             column = column < (numberOfColumns - 1) ? (column + 1) : 0

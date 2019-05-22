@@ -22,13 +22,12 @@ final class GifObjectCollectionViewCell: UICollectionViewCell, BaseCellProtocol 
         imageView.backgroundColor = GiphyColors.randomColor
         activityIndicator.startAnimating()
         guard let gifUrl = URL(string: gifObject.fixedWidthImage?.urlString ?? "") else { return }
-        Nuke.loadImage(
-            with: gifUrl,
-            options: ImageLoadingOptions(transition: .fadeIn(duration: 0.33)),
-            into: imageView,
-            completion: { [weak self] _, _ in
-                self?.activityIndicator.stopAnimating()
-                self?.imageView.backgroundColor = UIColor.clear
+        Nuke.loadImage(with: gifUrl,
+                       options: ImageLoadingOptions(transition: .fadeIn(duration: 0.33)),
+                       into: imageView,
+                       completion: { [weak self] _, _ in
+                        self?.activityIndicator.stopAnimating()
+                        self?.imageView.backgroundColor = UIColor.clear
         })
     }
 }
