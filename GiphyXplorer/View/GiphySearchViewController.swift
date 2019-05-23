@@ -25,6 +25,12 @@ final class GiphySearchViewController: UIViewController {
         return hud
     }()
 
+    private lazy var errorHud: JGProgressHUD = {
+        let errorHud = JGProgressHUD(style: .dark)
+        errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+        return errorHud
+    }()
+
     private let viewModel = GiphySearchViewModel()
 
     private let disposeBag = DisposeBag()
@@ -44,6 +50,12 @@ final class GiphySearchViewController: UIViewController {
                 self?.view.endEditing(true)
             })
             .disposed(by: disposeBag)
+
+        viewModel.errorPublishSubject.subscribe(onNext: { [unowned self] error in
+            self.errorHud.textLabel.text = error.message
+            self.errorHud.show(in: self.view, animated: true)
+            self.errorHud.dismiss(afterDelay: 2, animated: true)
+        }).disposed(by: disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {

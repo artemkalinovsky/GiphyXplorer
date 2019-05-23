@@ -16,6 +16,7 @@ final class GiphySearchViewModel {
     private var totalCount: UInt64 = 0
 
     let gifObjects = Variable<[GifObject]>([GifObject]())
+    let errorPublishSubject = PublishSubject<GifObjectsRepository.GifObjectsRepositoryError>()
 
     private let disposeBag = DisposeBag()
 
@@ -44,6 +45,13 @@ final class GiphySearchViewModel {
                     self.gifObjects.value.append(contentsOf: gifObjects)
                 }
                 self.isSearchInProgress = false
+                },
+                       onError: { [unowned self] error in
+                        guard let error = error as? GifObjectsRepository.GifObjectsRepositoryError else {
+                            return
+                        }
+                        self.errorPublishSubject.onNext(error)
+                        self.isSearchInProgress = false
             }).disposed(by: disposeBag)
     }
 

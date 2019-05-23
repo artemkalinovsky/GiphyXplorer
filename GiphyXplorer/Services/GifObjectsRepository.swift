@@ -12,6 +12,19 @@ import Moya
 
 struct GifObjectsRepository {
 
+    enum GifObjectsRepositoryError: Error {
+        case noInternetConnection, unknownError
+
+        var message: String {
+            switch self {
+            case .noInternetConnection:
+                return "The Internet connection appears to be offline."
+            case .unknownError:
+                return "Unknown error."
+            }
+        }
+    }
+
     private let giphyApiService = MoyaProvider<GiphyApiService>()
     private let realm = try! Realm()
 
@@ -32,7 +45,16 @@ struct GifObjectsRepository {
             .request(.searchGifs(query: query, pagination: pagination, rating: rating))
             .map { JSON($0.data) }
             .map { GiphyApiServiceResponse(json: $0) }
-            .asObservable().share()
+            .asObservable()
+            .catchError { moyaError in
+                if case MoyaError.underlying(let error, _) = moyaError {
+                    if (error as NSError).code == -1009 {
+                        throw GifObjectsRepositoryError.noInternetConnection
+                    }
+                }
+                throw GifObjectsRepositoryError.noInternetConnection
+            }
+            .share()
 
         let realmChangeSetObservable = Observable.changeset(from: realm.objects(GifObject.self))
 
@@ -42,7 +64,7 @@ struct GifObjectsRepository {
             .disposed(by: disposeBag)
 
         return Observable.combineLatest(realmChangeSetObservable, giphyApiServiceResponseObservable)
-            .map { (_, giphyApiResponse: GiphyApiServiceResponse) in
+            .map { (_, giphyApiResponse: GiphyApiServiceResponse) -> ([GifObject], UInt64) in
                 return (giphyApiResponse.gifObjects, giphyApiResponse.pagination.totalCount)
         }
     }
