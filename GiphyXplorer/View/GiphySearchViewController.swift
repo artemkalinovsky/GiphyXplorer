@@ -119,6 +119,21 @@ final class GiphySearchViewController: UIViewController {
                                       rating: Rating(rawValue: self.ratingTextField.text ?? "") ?? .g)
             }).disposed(by: disposeBag)
 
+        collectionView.rx
+            .modelSelected(GifObject.self)
+            .asDriver()
+            .drive(onNext: { [unowned self] gifObject in
+                guard let fixedWidthImageUrl = URL(string: "\(gifObject.fixedWidthImage?.urlString ?? "")") else {
+                    return
+                }
+                let shareData = NSData(contentsOf: fixedWidthImageUrl)
+                let gifData = [shareData as Any]
+                let activityViewController = UIActivityViewController(activityItems: gifData,
+                                                                      applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+
         viewModel.gifObjects
             .asDriver()
             .do(onNext: { [unowned self] gifObjects in
