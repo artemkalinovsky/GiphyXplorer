@@ -1,23 +1,23 @@
 PODS:
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.0)
   - Differentiator (3.1.0)
   - FLAnimatedImage (1.0.12)
-  - JGProgressHUD (2.0.3)
+  - JGProgressHUD (2.0.4)
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
   - Moya/RxSwift (13.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
-  - Nuke (7.6.3)
-  - Nuke-FLAnimatedImage-Plugin (6.1):
+  - Nuke (8.3.0)
+  - Nuke-FLAnimatedImage-Plugin (6.2):
     - FLAnimatedImage (~> 1.0)
-    - Nuke (~> 7.5)
-  - Realm (3.15.0):
-    - Realm/Headers (= 3.15.0)
-  - Realm/Headers (3.15.0)
-  - RealmSwift (3.15.0):
-    - Realm (= 3.15.0)
+    - Nuke (~> 8.0)
+  - Realm (3.19.0):
+    - Realm/Headers (= 3.19.0)
+  - Realm/Headers (3.19.0)
+  - RealmSwift (3.19.0):
+    - Realm (= 3.19.0)
   - Result (4.1.0)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
@@ -41,7 +41,7 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - Differentiator
     - FLAnimatedImage
@@ -59,15 +59,15 @@ SPEC REPOS:
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
+  JGProgressHUD: 62658b14e72cccf179efc7a13bcb54d30b92fc22
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  Nuke: 44130e95e09463f8773ae4b96b90de1eba6b3350
-  Nuke-FLAnimatedImage-Plugin: bee60907311da45dd291463f41a176d50de68122
-  Realm: 9b834e1be6062f544805252c812348872dc5d4ed
-  RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
+  Nuke: 775e35cf3c12cde80b3bff5fc7a77abb0cf29d0b
+  Nuke-FLAnimatedImage-Plugin: c6e8f6cffd57659953a149ff1682370b9040d09d
+  Realm: 995d585bcf699aaff226715886c849a29dd3d07f
+  RealmSwift: 35f284a537989f2187b413e5917091948cb87a3f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
@@ -77,4 +77,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9b07f4130a9ba551f2970fe1ccf0816d2e22126e
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.8.3

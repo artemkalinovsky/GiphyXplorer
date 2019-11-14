@@ -126,8 +126,8 @@ final class GiphySearchViewController: UIViewController {
                 guard let fixedWidthImageUrl = URL(string: "\(gifObject.fixedWidthImage?.urlString ?? "")") else {
                     return
                 }
-                let shareData = NSData(contentsOf: fixedWidthImageUrl)
-                let gifData = [shareData as Any]
+                let shareData = try? Data(contentsOf: fixedWidthImageUrl)
+                let gifData = [shareData]
                 let activityViewController = UIActivityViewController(activityItems: gifData,
                                                                       applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view
@@ -141,7 +141,7 @@ final class GiphySearchViewController: UIViewController {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.hud.dismiss(animated: true)
             }).drive(collectionView.rx.items(cellIdentifier: GifObjectCollectionViewCell.id,
-                                             cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
+                                                cellType: GifObjectCollectionViewCell.self)) { _, gifObject, cell in
                                                 cell.configure(with: gifObject)
             }.disposed(by: disposeBag)
     }
